@@ -26,6 +26,7 @@ function RecipesContainer({ children }: { children: any }) {
 }
 
 export default function Page() {
+    const apiURL = process.env.API_URL;
 	const searchParams = useSearchParams();
 	const query = searchParams?.get("q");
 
@@ -33,7 +34,7 @@ export default function Page() {
 		fetch(...args).then((res) => res.json());
 
 	const { data, error } = useSWR(
-		`http://localhost:3001/search/${query}`,
+		`http://${apiURL}/search/${query}`,
 		fetcher,
 	);
 

@@ -59,6 +59,7 @@ export default function RecipePage({
 }: {
 	params: { recipe: [number, string] };
 }) {
+    const apiUrl = process.env.API_URL;
 	const recipeParams = params.recipe;
 	const urlInfo = getUrlInfo({ recipeParams });
 
@@ -79,7 +80,7 @@ export default function RecipePage({
 		error: any;
 		isLoading: any;
 	} = useSWR(
-		`http://localhost:3001/recipe/${recipeId}/${recipeRawTitle}`,
+		`https://${apiUrl}/recipe/${recipeId}/${recipeRawTitle}`,
 		fetcher,
 	);
 
