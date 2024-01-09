@@ -34,7 +34,7 @@ export default function Page() {
 		fetch(...args).then((res) => res.json());
 
 	const { data, error } = useSWR(
-		`http://${apiURL}/search/${query}`,
+		`https://${apiURL}/search/${query}`,
 		fetcher,
 	);
 
