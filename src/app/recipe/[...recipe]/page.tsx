@@ -120,7 +120,7 @@ function HowToStep({ instruction }: { instruction: RecipeInstruction }) {
 	);
 }
 
-export async function getRecipeInfo(context: {
+async function getRecipeInfo(context: {
 	params: { recipe: any };
 }): Promise<Result<Result<Recipe, string>, JSX.Element>> {
 	const apiUrl = process.env.API_URL;
