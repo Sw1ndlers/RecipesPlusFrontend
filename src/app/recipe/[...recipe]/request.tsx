@@ -1,4 +1,4 @@
-import ErrorPage from "@components/Error";
+import ErrorPage from "@/components/elements/Error";
 import { Err, Ok, Result } from "@/types/Results";
 
 export function getUrlInfo({

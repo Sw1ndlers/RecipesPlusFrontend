@@ -1,5 +1,5 @@
 import { Recipe } from "@/types/Recipes";
-import { RatingStars } from "@components/RatingStars";
+import { RatingStars } from "@/components/Recipes/RatingStars";
 import Link from "next/link";
 
 export function RecipeCard({ recipe }: { recipe: Recipe }) {

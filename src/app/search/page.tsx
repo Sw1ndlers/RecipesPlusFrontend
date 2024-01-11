@@ -2,9 +2,9 @@
 
 import useSWR from "swr";
 import { useSearchParams } from "next/navigation";
-import { RecipeCard, LoadingRecipeCard } from "@components/RecipeCard";
+import { RecipeCard, LoadingRecipeCard } from "@/components/Recipes/RecipeCard";
 import type { Recipe } from "@/types/Recipes";
-import ErrorPage from "@components/Error";
+import ErrorPage from "@/components/elements/Error";
 import CenterLayout from "@components/layouts/Center";
 
 function NoQuery() {

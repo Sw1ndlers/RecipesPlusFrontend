@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
-import ErrorPage from "@components/Error";
+import ErrorPage from "@/components/elements/Error";
 import { Err, Ok, Result, ForceUnwrap } from "@/types/Results";
 import { RecipeInfo, RecipeInstruction } from "@/types/RecipeInfo";
-import { RatingStars } from "@components/RatingStars";
+import { RatingStars } from "@/components/Recipes/RatingStars";
 import useSWR from "swr";
 import { formatDate, formatDuration } from "@/functions/utils";
-import { Spinner } from "@components/Loader";
+import { Spinner } from "@/components/elements/Loaders";
 import CenterLayout from "@components/layouts/Center";
-import { RawText } from "@components/RawText";
+import { RawText } from "@/components/elements/RawText";
 import type { Metadata, ResolvingMetadata } from "next";
 import { getUrlInfo } from "./request";
 import { Recipe } from "@/types/Recipes";

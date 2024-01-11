@@ -1,4 +1,4 @@
-import { Spinner } from "@components/Loader";
+import { Spinner } from "@/components/elements/Loaders";
 
 export default function Root() {
 	return <>
