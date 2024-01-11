@@ -1,11 +1,12 @@
 import { Recipe } from "@/types/Recipes";
 import { RatingStars } from "@components/RatingStars";
+import Link from "next/link";
 
 export function RecipeCard({ recipe }: { recipe: Recipe }) {
 	const href = `/recipe/${recipe.id}/${recipe.rawTitle}`;
 
 	return (
-		<a
+		<Link
 			href={href}
 			className="min-h-[300px] w-64 max-w-[250px] flex-grow cursor-pointer rounded-md border
                 border-dark-5 bg-dark-7 shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl"
@@ -32,7 +33,7 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
 					</p>
 				</div>
 			</div>
-		</a>
+		</Link>
 	);
 }
 

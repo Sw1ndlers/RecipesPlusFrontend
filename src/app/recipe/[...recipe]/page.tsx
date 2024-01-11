@@ -3,10 +3,13 @@
 
 import ErrorPage from "@components/Error";
 import { Err, Ok, Result } from "@/types/Results";
-import { RecipeInfo } from "@/types/RecipeInfo";
-import { RatingStars } from "@/components/RatingStars";
+import { RecipeInfo, RecipeInstruction } from "@/types/RecipeInfo";
+import { RatingStars } from "@components/RatingStars";
 import useSWR from "swr";
 import { formatDate, formatDuration } from "@/functions/utils";
+import { Spinner } from "@components/Loader";
+import CenterLayout from "@components/layouts/Center";
+import { RawText } from "@components/RawText";
 
 function getUrlInfo({
 	recipeParams,
@@ -39,9 +42,9 @@ function getUrlInfo({
 	return Ok({ recipeId, recipeRawTitle });
 }
 
-function PrepInfoBox({
+function InfoBox({
 	title,
-	description,
+	description: value,
 }: {
 	title: string;
 	description: string;
@@ -49,8 +52,57 @@ function PrepInfoBox({
 	return (
 		<div className=" m-auto">
 			<p className=" font-bold text-white "> {title}: </p>
-			<p className=""> {description} </p>
+			<p className=""> {value} </p>
 		</div>
+	);
+}
+
+function InfoBoxContainer({
+	title,
+	caption = "",
+	information,
+}: {
+	title: string;
+	caption?: string;
+	information: { title: string; description: string }[];
+}) {
+	return (
+		<div className="mt-4 flex flex-col rounded-md border border-dark-5 px-8 py-4 shadow-md">
+			<h1 className="text-2xl font-semibold text-white underline underline-offset-8">
+				{title}
+				<span className="text-sm text-dark-0"> {caption} </span>
+			</h1>
+			<div className="mt-3 flex flex-wrap items-center justify-between gap-4 rounded-md">
+				{information.map(
+					(info, index) =>
+						info.description && (
+							<InfoBox
+								title={info.title}
+								description={info.description}
+								key={index}
+							/>
+						),
+				)}
+			</div>
+		</div>
+	);
+}
+
+function HowToStep({ instruction }: { instruction: RecipeInstruction }) {
+	return (
+		<>
+			<p className="mt-2 text-white">{instruction.text}</p>
+
+			{instruction.image &&
+				instruction.image.map((image, index) => (
+					<img
+						key={index}
+						src={image.url}
+						alt={instruction.text}
+						className="mt-4 rounded-lg"
+					/>
+				))}
+		</>
 	);
 }
 
@@ -59,7 +111,7 @@ export default function RecipePage({
 }: {
 	params: { recipe: [number, string] };
 }) {
-    const apiUrl = process.env.API_URL;
+	const apiUrl = process.env.API_URL;
 	const recipeParams = params.recipe;
 	const urlInfo = getUrlInfo({ recipeParams });
 
@@ -85,18 +137,24 @@ export default function RecipePage({
 	);
 
 	if (error) return <ErrorPage caption={error} />;
-	if (isLoading) return <ErrorPage title="Loading Recipe..." caption="" />;
+	if (isLoading)
+		return (
+			<CenterLayout>
+				<Spinner size={80} borderSize={7} />
+			</CenterLayout>
+		);
 	if (!data.ok) return <ErrorPage caption={data.error} />;
 
 	const recipeInfo: RecipeInfo = (data.value as any)[0];
+    console.log(recipeInfo);
 
 	return (
 		<div className="min-h-screen max-w-[650px] self-center p-10 text-center text-dark-0">
 			{/* Title */}
-			<h1
+			<RawText
+				text={recipeInfo.headline}
 				className="text-3xl font-bold text-white sm:text-5xl"
-				dangerouslySetInnerHTML={{ __html: recipeInfo.headline }}
-			></h1>
+			/>
 
 			{/* Rating */}
 			<div className="mt-4 flex w-full flex-row items-center justify-center">
@@ -110,10 +168,10 @@ export default function RecipePage({
 			</div>
 
 			{/* Description */}
-			<p
+			<RawText
+				text={recipeInfo.description}
 				className="mt-4 text-white"
-				dangerouslySetInnerHTML={{ __html: recipeInfo.description }}
-			></p>
+			/>
 
 			{/* Image + Author */}
 			<div className="mt-4 rounded-md border border-dark-5 p-4 shadow-md">
@@ -132,26 +190,59 @@ export default function RecipePage({
 				</p>
 			</div>
 
-			{/* Prep Info */}
+			{/* <PrepInfo recipeInfo={recipeInfo} />
+			<NutritionInfo recipeInfo={recipeInfo} /> */}
 
-			<div className="mt-4 flex flex-wrap items-center justify-between gap-4 rounded-md border border-dark-5 px-8 py-4 shadow-md">
-				<PrepInfoBox
-					title="Cook Time"
-					description={formatDuration(recipeInfo.cookTime)}
-				/>
-				<PrepInfoBox
-					title="Prep Time"
-					description={formatDuration(recipeInfo.prepTime)}
-				/>
-				<PrepInfoBox
-					title="Total Time"
-					description={formatDuration(recipeInfo.totalTime)}
-				/>
-				<PrepInfoBox
-					title="Servings"
-					description={recipeInfo.recipeYield[0]}
-				/>
-			</div>
+			<InfoBoxContainer
+				title="Prep Information"
+				information={[
+					{
+						title: "Cook Time",
+						description:
+							recipeInfo.cookTime &&
+							formatDuration(recipeInfo.cookTime),
+					},
+					{
+						title: "Prep Time",
+						description:
+							recipeInfo.prepTime &&
+							formatDuration(recipeInfo.prepTime),
+					},
+					{
+						title: "Total Time",
+						description:
+							recipeInfo.totalTime &&
+							formatDuration(recipeInfo.totalTime),
+					},
+					{
+						title: "Servings",
+						description: recipeInfo.recipeYield[0],
+					},
+				]}
+			/>
+
+			<InfoBoxContainer
+				title="Nutrition"
+				caption="(per serving)"
+				information={[
+					{
+						title: "Calories",
+						description: recipeInfo.nutrition.calories,
+					},
+					{
+						title: "Fat",
+						description: recipeInfo.nutrition.fatContent,
+					},
+					{
+						title: "Carbs",
+						description: recipeInfo.nutrition.carbohydrateContent,
+					},
+					{
+						title: "Protein",
+						description: recipeInfo.nutrition.proteinContent,
+					},
+				]}
+			/>
 
 			{/* Ingredients */}
 
@@ -190,23 +281,7 @@ export default function RecipePage({
 							</h1>
 
 							{instruction["@type"] == "HowToStep" && (
-								<>
-									<p className="mt-2 text-white">
-										{instruction.text}
-									</p>
-
-									{instruction.image &&
-										instruction.image.map(
-											(image, index) => (
-												<img
-													key={index}
-													src={image.url}
-													alt={recipeInfo.headline}
-													className="mt-4 rounded-lg"
-												/>
-											),
-										)}
-								</>
+								<HowToStep instruction={instruction} />
 							)}
 						</div>
 					))}

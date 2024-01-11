@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { RecipeCard, LoadingRecipeCard } from "@components/RecipeCard";
 import type { Recipe } from "@/types/Recipes";
 import ErrorPage from "@components/Error";
+import CenterLayout from "@components/layouts/Center";
 
 function NoQuery() {
 	return (
@@ -15,18 +16,18 @@ function NoQuery() {
 	);
 }
 
-function RecipesContainer({ children }: { children: any }) {
-	return (
-		<div className="flex size-full justify-center">
-			<div className="flex flex-wrap justify-center gap-9 p-12 lg:w-7/12">
-				{children}
-			</div>
-		</div>
-	);
+function RecipeCardList({ recipes }: { recipes: Recipe[] }) {
+	return recipes.map((recipe) => (
+		<RecipeCard recipe={recipe} key={recipe.id} />
+	));
+}
+
+function LoadingCardList() {
+	return [...Array(24)].map((_, i) => <LoadingRecipeCard key={i} />);
 }
 
 export default function Page() {
-    const apiURL = process.env.API_URL;
+	const apiURL = process.env.API_URL;
 	const searchParams = useSearchParams();
 	const query = searchParams?.get("q");
 
@@ -40,28 +41,20 @@ export default function Page() {
 
 	if (!query || !searchParams) return <NoQuery />;
 	if (error) return <ErrorPage caption={"Recipes could not be fetched"} />;
-	if (!data)
-		return (
-			<RecipesContainer>
-				{[...Array(24)].map((_, i) => (
-					<LoadingRecipeCard key={i} />
-				))}
-			</RecipesContainer>
-		);
+
 	return (
-		<RecipesContainer>
-			{data.ok ? (
+		<div className="flex size-full flex-wrap justify-center gap-9 self-center px-4 py-12 lg:w-7/12">
+			{!data ? (
+				<LoadingCardList />
+			) : data.ok ? (
 				data.value.length === 0 ? (
 					<NoQuery />
 				) : (
-					data.value.map((recipe: Recipe) => (
-						<RecipeCard recipe={recipe} key={recipe.id} />
-						// <LoadingRecipeCard key={recipe.id} />
-					))
+					<RecipeCardList recipes={data.value} />
 				)
 			) : (
 				<ErrorPage caption={data.error} />
 			)}
-		</RecipesContainer>
+		</div>
 	);
 }
