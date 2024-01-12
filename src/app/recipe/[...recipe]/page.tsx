@@ -1,58 +1,54 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-
-import ErrorPage from "@/components/elements/Error";
-import { Err, Ok, Result, ForceUnwrap } from "@/types/Results";
-import { RecipeInfo, RecipeInstruction } from "@/types/RecipeInfo";
 import { RatingStars } from "@/components/Recipes/RatingStars";
-import useSWR from "swr";
-import { formatDate, formatDuration } from "@/functions/utils";
-import { Spinner } from "@/components/elements/Loaders";
-import CenterLayout from "@components/layouts/Center";
 import { RawText } from "@/components/elements/RawText";
-import type { Metadata, ResolvingMetadata } from "next";
-import { getUrlInfo } from "./request";
-import { Recipe } from "@/types/Recipes";
-import { useState } from "react";
-
-// let recipeInfoCache: Result<RecipeInfo, string> | undefined = undefined;
+import { fetchRecipeInfo, getRecipeInfoFromUrl } from "@/functions/Fetching";
+import { formatDate, formatDuration } from "@/functions/utils";
+import { RecipeInfo, RecipeStep } from "@/types/RecipeInfo";
+import type { Metadata } from "next";
 
 export async function generateMetadata({
 	params,
 }: {
 	params: { recipe: [number, string] };
 }): Promise<Metadata> {
-	const fetchResult = await getRecipeInfo({ params });
+	const urlInfo = getRecipeInfoFromUrl(params.recipe);
+	const returnError = {
+		title: "Error",
+		description: "Error",
+	};
 
-    if (!fetchResult.ok) {
-        return {
-            title: "Error",
-            description: "Error",
-        };
-    }
+	if (!urlInfo.ok) {
+		return returnError;
+	}
 
-    const recipeResult = fetchResult.value;
+	const fetchResult = await fetchRecipeInfo(
+		urlInfo.value.recipeId,
+		urlInfo.value.recipeRawTitle,
+	);
 
-    if (!recipeResult.ok) {
-        return {
-            title: "Error",
-            description: "Error",
-        };
-    }
+	if (!fetchResult.ok) {
+		return returnError;
+	}
 
-    const recipeInfo: RecipeInfo = (recipeResult.value as any)[0];
+	const recipeResult = fetchResult.value;
+
+	if (!recipeResult.ok) {
+		return returnError;
+	}
+
+	const recipeInfo: RecipeInfo = (recipeResult.value as any);
 
 	return {
 		title: recipeInfo.headline,
 		description: recipeInfo.description,
-        openGraph: {
-            title: recipeInfo.headline,
-            description: recipeInfo.description,
-            images: [
-                {
-                    url: recipeInfo.image.url,
-                },
-            ],
-        },
+		openGraph: {
+			title: recipeInfo.headline,
+			description: recipeInfo.description,
+			images: [
+				{
+					url: recipeInfo.image.url,
+				},
+			],
+		},
 	};
 }
 
@@ -102,13 +98,13 @@ function InfoBoxContainer({
 	);
 }
 
-function HowToStep({ instruction }: { instruction: RecipeInstruction }) {
+function HowToStep({ instruction }: { instruction: RecipeStep }) {
 	return (
 		<>
 			<p className="mt-2 text-white">{instruction.text}</p>
 
-			{instruction.image &&
-				instruction.image.map((image, index) => (
+			{instruction.images &&
+				instruction.images.map((image, index) => (
 					<img
 						key={index}
 						src={image.url}
@@ -120,33 +116,23 @@ function HowToStep({ instruction }: { instruction: RecipeInstruction }) {
 	);
 }
 
-async function getRecipeInfo(context: {
-	params: { recipe: any };
-}): Promise<Result<Result<Recipe, string>, JSX.Element>> {
-	const apiUrl = process.env.API_URL;
-	const recipeParams = context.params.recipe;
-	const urlInfo = getUrlInfo({ recipeParams });
-
-	if (!urlInfo.ok) {
-		Err(urlInfo.error);
-	}
-
-	const { recipeId, recipeRawTitle } = ForceUnwrap(urlInfo);
-
-	const response = await fetch(
-		`https://${apiUrl}/recipe/${recipeId}/${recipeRawTitle}`,
-	);
-
-	const data: Result<Recipe, string> = await response.json();
-	return Ok(data);
-}
-
 export default async function RecipePage({
 	params,
 }: {
 	params: { recipe: [number, string] };
 }) {
-	const fetchResult = await getRecipeInfo({ params });
+	const urlInfo = getRecipeInfoFromUrl(params.recipe);
+
+	if (!urlInfo.ok) {
+		return urlInfo.error;
+	}
+
+	const fetchResult = await fetchRecipeInfo(
+		urlInfo.value.recipeId,
+		urlInfo.value.recipeRawTitle,
+	);
+
+
 
 	if (!fetchResult.ok) {
 		return fetchResult.error;
@@ -154,11 +140,13 @@ export default async function RecipePage({
 
 	const recipeResult = fetchResult.value;
 
+
 	if (!recipeResult.ok) {
 		return recipeResult.error;
 	}
 
-	const recipeInfo: RecipeInfo = (recipeResult.value as any)[0];
+
+	const recipeInfo: RecipeInfo = (recipeResult.value as any);
 
 	return (
 		<div className="min-h-screen max-w-[650px] self-center p-10 text-center text-dark-0">
@@ -171,11 +159,11 @@ export default async function RecipePage({
 			{/* Rating */}
 			<div className="mt-4 flex w-full flex-row items-center justify-center">
 				<RatingStars
-					rating={parseFloat(recipeInfo.aggregateRating.ratingValue)}
+					rating={recipeInfo.rating.value}
 				/>
 				<p className="ml-2">
-					{recipeInfo.aggregateRating.ratingValue} (
-					{recipeInfo.aggregateRating.ratingCount} Ratings)
+					{recipeInfo.rating.value} (
+					{recipeInfo.rating.count} Ratings)
 				</p>
 			</div>
 
@@ -188,13 +176,12 @@ export default async function RecipePage({
 			{/* Image + Author */}
 			<div className="mt-4 rounded-md border border-dark-5 p-4 shadow-md">
 				{/* Image */}
-
 				<img src={recipeInfo.image.url} alt={recipeInfo.headline} />
 
 				{/* Author */}
 				<p className="mt-4 text-sm">
 					<span className="text-white">
-						Recipe by {recipeInfo.author[0].name}
+						Recipe by {recipeInfo.author}
 					</span>{" "}
 					<span className="">
 						| Updated on {formatDate(recipeInfo.dateModified)}
@@ -264,7 +251,7 @@ export default async function RecipePage({
 				</h1>
 
 				<div className="mt-4">
-					{recipeInfo.recipeIngredient.map((ingredient, index) => (
+					{recipeInfo.ingredients.map((ingredient, index) => (
 						<p
 							key={index}
 							className={`
@@ -286,15 +273,15 @@ export default async function RecipePage({
 				</h1>
 
 				<div className="mt-4 flex flex-col gap-8">
-					{recipeInfo.recipeInstructions.map((instruction, index) => (
+					{recipeInfo.steps.map((instruction, index) => (
 						<div key={index}>
 							<h1 className="text-lg font-bold text-white">
 								Step {index + 1}
 							</h1>
 
-							{instruction["@type"] == "HowToStep" && (
-								<HowToStep instruction={instruction} />
-							)}
+						
+							<HowToStep instruction={instruction} />
+				
 						</div>
 					))}
 				</div>
