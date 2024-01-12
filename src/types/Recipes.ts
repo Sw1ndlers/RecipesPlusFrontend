@@ -1,4 +1,4 @@
-export type Recipe = {
+export type SearchedRecipe = {
 	image: string;
 	title: string;
     rawTitle: string;

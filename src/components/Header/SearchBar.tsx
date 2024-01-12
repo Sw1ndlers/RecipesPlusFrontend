@@ -1,6 +1,6 @@
 import { IconSearch } from "@tabler/icons-react";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 function SearchIcon({ onSubmit }: { onSubmit: any }) {
 	return (
@@ -47,7 +47,7 @@ export function SearchBar({
 		>
 			<input
 				className="flex-grow bg-transparent pl-4 text-white placeholder-dark-3 outline-none"
-				placeholder="Search for your next recipe"
+				placeholder="Search for your next favorite"
                 name="search"
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}

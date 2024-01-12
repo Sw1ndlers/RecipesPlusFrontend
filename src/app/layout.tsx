@@ -1,9 +1,8 @@
+import { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import "@assets/globals.css";
 
 import Header from "@/components/Header/Header";
-import { Metadata } from "next";
-import { useEffect } from "react";
+import "@assets/globals.css";
 
 export const metadata: Metadata = {
 	title: "Recipes Plus",
@@ -12,6 +11,10 @@ export const metadata: Metadata = {
         icon: "../assets/icon.png",
     }
 };
+
+export const viewport: Viewport = {
+    themeColor: "#000000",
+}
 
 const inter = Inter({ subsets: ["latin"] });
 

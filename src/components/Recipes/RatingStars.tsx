@@ -1,7 +1,7 @@
 import {
-	IconStar,
-	IconStarFilled,
-	IconStarHalfFilled,
+    IconStar,
+    IconStarFilled,
+    IconStarHalfFilled,
 } from "@tabler/icons-react";
 
 export function RatingStars({

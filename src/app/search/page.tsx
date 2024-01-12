@@ -3,9 +3,8 @@
 import useSWR from "swr";
 import { useSearchParams } from "next/navigation";
 import { RecipeCard, LoadingRecipeCard } from "@/components/Recipes/RecipeCard";
-import type { Recipe } from "@/types/Recipes";
+import type { SearchedRecipe } from "@/types/Recipes";
 import ErrorPage from "@/components/elements/Error";
-import CenterLayout from "@components/layouts/Center";
 
 function NoQuery() {
 	return (
@@ -16,7 +15,7 @@ function NoQuery() {
 	);
 }
 
-function RecipeCardList({ recipes }: { recipes: Recipe[] }) {
+function RecipeCardList({ recipes }: { recipes: SearchedRecipe[] }) {
 	return recipes.map((recipe) => (
 		<RecipeCard recipe={recipe} key={recipe.id} />
 	));
@@ -25,6 +24,8 @@ function RecipeCardList({ recipes }: { recipes: Recipe[] }) {
 function LoadingCardList() {
 	return [...Array(24)].map((_, i) => <LoadingRecipeCard key={i} />);
 }
+
+
 
 export default function Page() {
 	const apiURL = process.env.API_URL;

@@ -1,13 +1,13 @@
 "use client";
 
-import { IconMenu2, IconX } from "@tabler/icons-react";
-import { useEffect, useState } from "react";
 import { SearchBar } from "@/components/Header/SearchBar";
-import { TextLink } from "@/components/elements/TextLink";
 import { Button } from "@/components/elements/Button";
-import { Logo } from "./Logo";
-import { useSearchParams } from "next/navigation";
+import { TextLink } from "@/components/elements/TextLink";
+import { IconMenu2, IconX } from "@tabler/icons-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Logo } from "./Logo";
 
 function HeaderSection({
 	align = "center",

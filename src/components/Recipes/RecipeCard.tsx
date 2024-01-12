@@ -1,15 +1,25 @@
-import { Recipe } from "@/types/Recipes";
 import { RatingStars } from "@/components/Recipes/RatingStars";
+import { SearchedRecipe } from "@/types/Recipes";
 import Link from "next/link";
 
-export function RecipeCard({ recipe }: { recipe: Recipe }) {
+
+export function RecipeCard({
+	recipe,
+	minmal = false,
+}: {
+	recipe: SearchedRecipe;
+	minmal?: boolean;
+}) {
 	const href = `/recipe/${recipe.id}/${recipe.rawTitle}`;
 
 	return (
 		<Link
 			href={href}
-			className="min-h-[300px] w-64 max-w-[250px] flex-grow cursor-pointer rounded-md border
-                border-dark-5 bg-dark-7 shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl"
+			className={`
+                min-h-[300px] w-64 max-w-[250px] flex-grow cursor-pointer rounded-md border
+                border-dark-5 bg-dark-7 shadow-lg transition-all hover:shadow-2xl
+                ${minmal ? "flex flex-col " : "  duration-500 hover:scale-105"}
+                `}
 		>
 			<div className="h-44 w-full">
 				<img
