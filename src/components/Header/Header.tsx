@@ -1,8 +1,8 @@
 "use client";
 
-import { SearchBar } from "@/components/Header/SearchBar";
 import { Button } from "@/components/Elements/Button";
 import { TextLink } from "@/components/Elements/TextLink";
+import { SearchBar } from "@/components/Header/SearchBar";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";

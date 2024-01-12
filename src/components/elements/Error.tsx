@@ -1,4 +1,4 @@
-import CenterLayout from "@/components/Layouts/Center";
+import CenterLayout from "@/components/Positioning/Center";
 
 export default function ErrorPage({
     title="An Error Has Occured",
