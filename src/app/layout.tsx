@@ -9,7 +9,18 @@ export const metadata: Metadata = {
 	description: "Recipe search engine",
     icons: {
         icon: "../assets/icon.png",
-    }
+    },
+    openGraph: {
+        type: "website",
+        url: "https://recipes-plus.vercel.app/",
+        title: "Recipes Plus",
+        description: "Recipe search engine",
+        images: [
+            {
+                url: "../assets/icon.png",
+            },
+        ],
+    },
 };
 
 export const viewport: Viewport = {
