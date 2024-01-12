@@ -4,7 +4,7 @@ import useSWR from "swr";
 import { useSearchParams } from "next/navigation";
 import { RecipeCard, LoadingRecipeCard } from "@/components/Recipes/RecipeCard";
 import type { SearchedRecipe } from "@/types/Recipes";
-import ErrorPage from "@/components/elements/Error";
+import ErrorPage from "@/components/Elements/Error";
 
 function NoQuery() {
 	return (

@@ -9,7 +9,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { searchForRecipes } from "@/functions/Fetching";
-import ErrorPage from "@/components/elements/Error";
+import ErrorPage from "@/components/Elements/Error";
 import useSWR from "swr";
 import { swrFetcher } from "@/functions/Fetching";
 import { SearchedRecipe } from "@/types/Recipes";

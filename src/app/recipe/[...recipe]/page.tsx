@@ -1,7 +1,7 @@
 import { RatingStars } from "@/components/Recipes/RatingStars";
-import { RawText } from "@/components/elements/RawText";
+import { RawText } from "@/components/Elements/RawText";
 import { fetchRecipeInfo, getRecipeInfoFromUrl } from "@/functions/Fetching";
-import { formatDate, formatDuration } from "@/functions/utils";
+import { formatDate, formatDuration } from "@/functions/Utils";
 import { RecipeInfo, RecipeStep } from "@/types/RecipeInfo";
 import type { Metadata } from "next";
 

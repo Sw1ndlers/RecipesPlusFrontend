@@ -1,4 +1,4 @@
-import ErrorPage from "@/components/elements/Error";
+import ErrorPage from "@/components/Elements/Error";
 import { SearchedRecipe } from "@/types/Recipes";
 import { Err, ForceUnwrap, Ok, Result } from "@/types/Results";
 
