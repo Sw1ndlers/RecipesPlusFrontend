@@ -27,7 +27,7 @@ function FeaturedScroller({ searchTerm }: { searchTerm: string }) {
 
 	const recipes: SearchedRecipe[] = data.value;
 	return (
-		<div>
+		<div className="min-h-[340px] min-w-full">
 			<p className=" mb-5 text-3xl font-bold text-white">{searchTerm}</p>
 			<Swiper
 				pagination={{
