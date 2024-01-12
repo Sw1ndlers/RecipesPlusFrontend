@@ -1,18 +1,16 @@
 "use client";
 
-import { use } from "react";
 
-import { Navigation, Pagination } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
+import ErrorPage from "@/components/Elements/Error";
+import { swrFetcher } from "@/functions/Fetching";
+import { SearchedRecipe } from "@/types/Recipes";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { searchForRecipes } from "@/functions/Fetching";
-import ErrorPage from "@/components/Elements/Error";
 import useSWR from "swr";
-import { swrFetcher } from "@/functions/Fetching";
-import { SearchedRecipe } from "@/types/Recipes";
 
 import { RecipeCard } from "@/components/Recipes/RecipeCard";
 

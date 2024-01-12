@@ -5,27 +5,28 @@ import Header from "@/components/Header/Header";
 import "@assets/globals.css";
 
 export const metadata: Metadata = {
+	metadataBase: new URL("http://localhost:3000"),
 	title: "Recipes Plus",
 	description: "Recipe search engine",
-    icons: {
-        icon: "../assets/icon.png",
-    },
-    openGraph: {
-        type: "website",
-        url: "https://recipes-plus.vercel.app/",
-        title: "Recipes Plus",
-        description: "Recipe search engine",
-        images: [
-            {
-                url: "../assets/icon.png",
-            },
-        ],
-    },
+	icons: {
+		icon: "../assets/icon.png",
+	},
+	openGraph: {
+		type: "website",
+		url: "https://recipes-plus.vercel.app/",
+		title: "Recipes Plus",
+		description: "Recipe search engine",
+		images: [
+			{
+				url: "../assets/icon.png",
+			},
+		],
+	},
 };
 
 export const viewport: Viewport = {
-    themeColor: "#000000",
-}
+	themeColor: "#000000",
+};
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,9 +37,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en" className="size-auto">
-			<body
-				className={`${inter.className} flex flex-col bg-dark-8`}
-			>
+			<body className={`${inter.className} flex flex-col bg-dark-8`}>
 				<Header />
 
 				{children}
