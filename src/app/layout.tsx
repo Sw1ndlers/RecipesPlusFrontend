@@ -8,19 +8,11 @@ export const metadata: Metadata = {
 	metadataBase: new URL("https://recipesplus.up.railway.app/"),
 	title: "Recipes Plus",
 	description: "Recipe search engine",
-	icons: {
-		icon: "../assets/icon.png",
-	},
 	openGraph: {
 		type: "website",
 		url: "https://recipesplus.up.railway.app/",
 		title: "Recipes Plus",
 		description: "Recipe search engine",
-		images: [
-			{
-				url: "../assets/icon.png",
-			},
-		],
 	},
 };
 
