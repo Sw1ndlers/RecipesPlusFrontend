@@ -14,6 +14,14 @@ import useSWR from "swr";
 
 import { RecipeCard } from "@/components/Recipes/RecipeCard";
 
+function ScrollerContainer({ children }: { children: React.ReactNode }) {
+    return (
+        <div className="min-h-[340px] min-w-full">
+            {children}
+        </div>
+    );
+}
+
 function FeaturedScroller({ searchTerm }: { searchTerm: string }) {
 	const apiUrl = process.env.API_URL;
 	const { data, error, isLoading } = useSWR(
@@ -22,12 +30,12 @@ function FeaturedScroller({ searchTerm }: { searchTerm: string }) {
 	);
 
 	if (error) return <ErrorPage caption={error} />;
-	if (isLoading) return <></>;
+	if (isLoading) return <ScrollerContainer> </ScrollerContainer>;
 	if (!data.ok) return <ErrorPage caption={data.error} />;
 
 	const recipes: SearchedRecipe[] = data.value;
 	return (
-		<div className="min-h-[340px] min-w-full">
+		<ScrollerContainer>
 			<p className=" mb-5 text-3xl font-bold text-white">{searchTerm}</p>
 			<Swiper
 				pagination={{
@@ -49,7 +57,7 @@ function FeaturedScroller({ searchTerm }: { searchTerm: string }) {
 					</SwiperSlide>
 				))}
 			</Swiper>
-		</div>
+		</ScrollerContainer>
 	);
 }
 
