@@ -5,7 +5,7 @@ import Header from "@/components/Header/Header";
 import "@assets/globals.css";
 
 export const metadata: Metadata = {
-	metadataBase: new URL("http://localhost:3000"),
+	metadataBase: new URL("https://recipesplus.up.railway.app/"),
 	title: "Recipes Plus",
 	description: "Recipe search engine",
 	icons: {
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 	},
 	openGraph: {
 		type: "website",
-		url: "https://recipes-plus.vercel.app/",
+		url: "https://recipesplus.up.railway.app/",
 		title: "Recipes Plus",
 		description: "Recipe search engine",
 		images: [
