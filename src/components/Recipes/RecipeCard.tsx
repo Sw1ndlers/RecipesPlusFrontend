@@ -18,6 +18,7 @@ export function RecipeCard({
 			className={`
                 min-h-[300px] w-64 max-w-[250px] flex-grow cursor-pointer rounded-md border
                 border-dark-5 bg-dark-7 shadow-lg transition-all hover:shadow-2xl
+                select-none
                 ${minmal ? "flex flex-col " : "  duration-500 hover:scale-105"}
                 `}
 		>
