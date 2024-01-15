@@ -35,7 +35,7 @@ export async function generateMetadata({
 		return returnError;
 	}
 
-	const recipeInfo: RecipeInfo = (recipeResult.value as any);
+	const recipeInfo: RecipeInfo = recipeResult.value as any;
 
 	return {
 		title: recipeInfo.headline,
@@ -132,21 +132,17 @@ export default async function RecipePage({
 		urlInfo.value.recipeRawTitle,
 	);
 
-
-
 	if (!fetchResult.ok) {
 		return fetchResult.error;
 	}
 
 	const recipeResult = fetchResult.value;
 
-
 	if (!recipeResult.ok) {
 		return recipeResult.error;
 	}
 
-
-	const recipeInfo: RecipeInfo = (recipeResult.value as any);
+	const recipeInfo: RecipeInfo = recipeResult.value as any;
 
 	return (
 		<div className="min-h-screen max-w-[650px] self-center p-10 text-center text-dark-0">
@@ -158,12 +154,10 @@ export default async function RecipePage({
 
 			{/* Rating */}
 			<div className="mt-4 flex w-full flex-row items-center justify-center">
-				<RatingStars
-					rating={recipeInfo.rating.value}
-				/>
+				<RatingStars rating={recipeInfo.rating.value} />
 				<p className="ml-2">
-					{recipeInfo.rating.value} (
-					{recipeInfo.rating.count} Ratings)
+					{recipeInfo.rating.value} ({recipeInfo.rating.count}{" "}
+					Ratings)
 				</p>
 			</div>
 
@@ -220,28 +214,31 @@ export default async function RecipePage({
 				]}
 			/>
 
-			<InfoBoxContainer
-				title="Nutrition"
-				caption="(per serving)"
-				information={[
-					{
-						title: "Calories",
-						description: recipeInfo.nutrition.calories,
-					},
-					{
-						title: "Fat",
-						description: recipeInfo.nutrition.fatContent,
-					},
-					{
-						title: "Carbs",
-						description: recipeInfo.nutrition.carbohydrateContent,
-					},
-					{
-						title: "Protein",
-						description: recipeInfo.nutrition.proteinContent,
-					},
-				]}
-			/>
+			{recipeInfo.nutrition && (
+				<InfoBoxContainer
+					title="Nutrition"
+					caption="(per serving)"
+					information={[
+						{
+							title: "Calories",
+							description: recipeInfo.nutrition.calories,
+						},
+						{
+							title: "Fat",
+							description: recipeInfo.nutrition.fatContent,
+						},
+						{
+							title: "Carbs",
+							description:
+								recipeInfo.nutrition.carbohydrateContent,
+						},
+						{
+							title: "Protein",
+							description: recipeInfo.nutrition.proteinContent,
+						},
+					]}
+				/>
+			)}
 
 			{/* Ingredients */}
 
@@ -279,9 +276,7 @@ export default async function RecipePage({
 								Step {index + 1}
 							</h1>
 
-						
 							<HowToStep instruction={instruction} />
-				
 						</div>
 					))}
 				</div>

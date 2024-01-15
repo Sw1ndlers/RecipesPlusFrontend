@@ -7,7 +7,7 @@ export type RecipeInfo = {
 	prepTime: string;
 	recipeYield: string;
     author: string;
-	nutrition: RecipeNutrition;
+	nutrition?: RecipeNutrition;
 	ingredients: string[];
 	image: RecipeImage;
 	steps: RecipeStep[];
