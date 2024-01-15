@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     env: {
-        API_URL: "recipesplus-api.up.railway.app"
+        API_URL: "api.recipesplus.live"
     }
 };
 
