@@ -11,7 +11,7 @@ export type RecipeInfo = {
 	ingredients: string[];
 	image: RecipeImage;
 	steps: RecipeStep[];
-	video: RecipeVideo;
+	video?: RecipeVideo;
     dateModified: Date;
 };
 
@@ -32,10 +32,10 @@ type RecipeVideo = {
 };
 
 type RecipeNutrition = {
-	calories: string;
-	fatContent: string;
-	carbohydrateContent: string;
-	proteinContent: string;
+	calories?: string;
+	fatContent?: string;
+	carbohydrateContent?: string;
+	proteinContent?: string;
 };
 
 type RecipeRating = {

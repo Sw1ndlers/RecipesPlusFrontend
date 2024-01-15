@@ -74,7 +74,7 @@ function InfoBoxContainer({
 }: {
 	title: string;
 	caption?: string;
-	information: { title: string; description: string }[];
+	information: { title: string; description: string | undefined }[];
 }) {
 	return (
 		<div className="mt-4 flex flex-col rounded-md border border-dark-5 px-8 py-4 shadow-md">
