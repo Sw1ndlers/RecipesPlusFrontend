@@ -29,7 +29,10 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en" className="size-auto">
-			<body className={`${inter.className} flex flex-col bg-dark-8`}>
+			<body
+				className={`${inter.className} flex flex-col bg-dark-8`}
+				suppressHydrationWarning={true}
+			>
 				<Header />
 
 				{children}

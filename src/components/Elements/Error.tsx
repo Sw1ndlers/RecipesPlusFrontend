@@ -1,6 +1,6 @@
-import CenterLayout from "@/components/Layouts/Center";
+import {HeaderCenterLayout} from "@/components/Layouts/Center";
 
-export default function ErrorPage({
+export function ErrorPage({
     title="An Error Has Occured",
 	caption,
 }: {
@@ -8,11 +8,11 @@ export default function ErrorPage({
 	caption: string;
 }) {
 	return (
-		<CenterLayout>
+		<HeaderCenterLayout>
 			<p className="text-5xl font-bold text-white"> {title} </p>
 			<p className="text-xl font-normal text-dark-0 mt-2">
 				{caption}
 			</p>
-        </CenterLayout>
+        </HeaderCenterLayout>
 	);
 }

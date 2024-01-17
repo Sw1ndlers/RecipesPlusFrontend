@@ -1,9 +1,25 @@
-import ErrorPage from "@/components/Elements/Error";
+import {ErrorPage} from "@/components/Elements/Error";
 import { SearchedRecipe } from "@/types/Recipes";
 import { Err, ForceUnwrap, Ok, Result } from "@/types/Results";
 
+const apiUrl = process.env.API_URL;
+
 export const swrFetcher = (...args: [RequestInfo, RequestInit?]) =>
 	fetch(...args).then((res) => res.json());
+
+export async function fetchWithToken(
+    url: string,
+    options: RequestInit = {},
+) {
+    const token = localStorage.getItem("sessionToken");
+    return fetch(url, {
+        ...options,
+        headers: {
+            ...options.headers,
+            Authorization: `${token}`,
+        },
+    });
+}
 
 export function getRecipeInfoFromUrl(recipeParams: [number, string]): Result<
 	{
@@ -35,19 +51,15 @@ export function getRecipeInfoFromUrl(recipeParams: [number, string]): Result<
 export async function searchForRecipes(
 	query: string,
 ): Promise<Result<SearchedRecipe[], string>> {
-	const apiUrl = process.env.API_URL;
-
-	return fetch(`https://${apiUrl}/search/${query}`).then((res) => res.json());
+	return fetch(`${apiUrl}/search/${query}`).then((res) => res.json());
 }
 
 export async function fetchRecipeInfo(
 	recipeId: number,
 	recipeRawTitle: string,
 ): Promise<Result<Result<SearchedRecipe, string>, JSX.Element>> {
-	const apiUrl = process.env.API_URL;
-
 	const response = await fetch(
-		`https://${apiUrl}/recipe/${recipeId}/${recipeRawTitle}`,
+		`${apiUrl}/recipe/${recipeId}/${recipeRawTitle}`,
 	);
 
 	const data: Result<SearchedRecipe, string> = await response.json();

@@ -4,7 +4,7 @@ import useSWR from "swr";
 import { useSearchParams } from "next/navigation";
 import { RecipeCard, LoadingRecipeCard } from "@/components/Recipes/RecipeCard";
 import type { SearchedRecipe } from "@/types/Recipes";
-import ErrorPage from "@/components/Elements/Error";
+import {ErrorPage} from "@/components/Elements/Error";
 
 function NoQuery() {
 	return (
@@ -27,7 +27,7 @@ function LoadingCardList() {
 
 
 
-export default function Page() {
+export default function SearchPage() {
 	const apiURL = process.env.API_URL;
 	const searchParams = useSearchParams();
 	const query = searchParams?.get("q");
@@ -36,7 +36,7 @@ export default function Page() {
 		fetch(...args).then((res) => res.json());
 
 	const { data, error } = useSWR(
-		`https://${apiURL}/search/${query}`,
+		`${apiURL}/search/${query}`,
 		fetcher,
 	);
 

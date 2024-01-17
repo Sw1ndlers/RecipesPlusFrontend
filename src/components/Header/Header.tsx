@@ -5,9 +5,11 @@ import { TextLink } from "@/components/Elements/TextLink";
 import { SearchBar } from "@/components/Header/SearchBar";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
+import { useRouter } from "next/navigation";
+import { IconUser } from "@tabler/icons-react";
 
 function HeaderSection({
 	align = "center",
@@ -52,7 +54,7 @@ function HamburgerMenu({
 	);
 }
 
-function MobileMenu({ toggleMenu }: { toggleMenu: () => void}) {
+function MobileMenu({ toggleMenu }: { toggleMenu: () => void }) {
 	function Section({ text, href }: { text: string; href: string }) {
 		return (
 			<Link
@@ -66,7 +68,7 @@ function MobileMenu({ toggleMenu }: { toggleMenu: () => void}) {
 	}
 
 	return (
-		<div className="absolute top-16 flex h-[calc(100vh-64px)] w-screen flex-col bg-dark-8 z-10">
+		<div className="absolute top-16 z-10 flex h-[calc(100vh-64px)] w-screen flex-col bg-dark-8">
 			<div className="mx-4 mb-4 mt-4 flex flex-col items-center">
 				<SearchBar fullWidth={true} callback={toggleMenu} />
 			</div>
@@ -81,14 +83,45 @@ function MobileMenu({ toggleMenu }: { toggleMenu: () => void}) {
 	);
 }
 
+const headerWhitelist = ["recipe", "search", "profile"];
+
+function validatePath(currentPath: string) {
+	currentPath = currentPath.split("/")[1];
+
+	for (const item of headerWhitelist) {
+		if (currentPath.includes(item) || currentPath == "") {
+			return true;
+		}
+	}
+	return false;
+}
+
+function ProfileButton() {
+	return (
+		<>
+			<a
+				className="
+                    cursor-pointer rounded-md border 
+                    border-dark-5 bg-dark-6 px-2 py-1 
+                    text-dark-0
+                "
+                aria-label="Profile"
+				href="/profile"
+			>
+				<IconUser color="white" size={24} stroke={1} />
+			</a>
+		</>
+	);
+}
+
 export default function Header() {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const searchParams = useSearchParams();
+	const searchParams = useSearchParams();
+	const pathname = usePathname();
 
 	const query = searchParams?.get("q") || "";
 
 	function toggleMenu() {
-        console.log("toggle menu");
 		setMobileMenuOpen(!mobileMenuOpen);
 	}
 
@@ -99,6 +132,8 @@ export default function Header() {
 			document.body.classList.remove("overflow-hidden");
 		}
 	}, [mobileMenuOpen]);
+
+    if (!validatePath(pathname)) return <></>;
 
 	return (
 		<>
@@ -117,7 +152,7 @@ export default function Header() {
 				{/* Logo */}
 				<HeaderSection
 					align="left"
-					className="justify-center md:justify-start pr-12"
+					className="justify-center md:justify-start"
 				>
 					<Logo />
 				</HeaderSection>
@@ -135,7 +170,7 @@ export default function Header() {
 							<TextLink text={"Contact"} />
 						</div>
 
-						<Button text={"Login"} />
+						<ProfileButton />
 					</div>
 				</HeaderSection>
 			</div>

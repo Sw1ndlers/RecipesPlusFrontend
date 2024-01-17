@@ -1,10 +1,9 @@
 "use client";
 
-
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import ErrorPage from "@/components/Elements/Error";
+import {ErrorPage} from "@/components/Elements/Error";
 import { swrFetcher } from "@/functions/Fetching";
 import { SearchedRecipe } from "@/types/Recipes";
 import "swiper/css";
@@ -25,7 +24,7 @@ function ScrollerContainer({ children }: { children: React.ReactNode }) {
 function FeaturedScroller({ searchTerm }: { searchTerm: string }) {
 	const apiUrl = process.env.API_URL;
 	const { data, error, isLoading } = useSWR(
-		`https://${apiUrl}/search/${searchTerm}`,
+		`${apiUrl}/search/${searchTerm}`,
 		swrFetcher,
 	);
 
