@@ -2,17 +2,17 @@ export type RecipeInfo = {
 	headline: string;
 	description: string;
 	rating: RecipeRating;
-    totalTime: string;
+	totalTime: string;
 	cookTime: string;
 	prepTime: string;
 	recipeYield: string;
-    author: string;
+	author: string;
 	nutrition?: RecipeNutrition;
 	ingredients: string[];
 	image: RecipeImage;
 	steps: RecipeStep[];
 	video?: RecipeVideo;
-    dateModified: Date;
+	dateModified: Date;
 };
 
 export type RecipeStep = {

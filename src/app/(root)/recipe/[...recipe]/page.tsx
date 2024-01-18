@@ -1,5 +1,5 @@
-import { RatingStars } from "@/components/Recipes/RatingStars";
 import { RawText } from "@/components/Elements/RawText";
+import { RatingStars } from "@/components/Recipes/RatingStars";
 import { fetchRecipeInfo, getRecipeInfoFromUrl } from "@/functions/Fetching";
 import { formatDate, formatDuration } from "@/functions/Utils";
 import { RecipeInfo, RecipeStep } from "@/types/RecipeInfo";

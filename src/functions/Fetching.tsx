@@ -1,24 +1,21 @@
-import {ErrorPage} from "@/components/Elements/Error";
+import { ErrorPage } from "@/components/Elements/Error";
 import { SearchedRecipe } from "@/types/Recipes";
-import { Err, ForceUnwrap, Ok, Result } from "@/types/Results";
+import { Err, Ok, Result } from "@/types/Results";
 
 const apiUrl = process.env.API_URL;
 
 export const swrFetcher = (...args: [RequestInfo, RequestInit?]) =>
 	fetch(...args).then((res) => res.json());
 
-export async function fetchWithToken(
-    url: string,
-    options: RequestInit = {},
-) {
-    const token = localStorage.getItem("sessionToken");
-    return fetch(url, {
-        ...options,
-        headers: {
-            ...options.headers,
-            Authorization: `${token}`,
-        },
-    });
+export async function fetchWithToken(url: string, options: RequestInit = {}) {
+	const token = localStorage.getItem("sessionToken");
+	return fetch(url, {
+		...options,
+		headers: {
+			...options.headers,
+			Authorization: `${token}`,
+		},
+	});
 }
 
 export function getRecipeInfoFromUrl(recipeParams: [number, string]): Result<

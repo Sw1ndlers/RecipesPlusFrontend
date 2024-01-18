@@ -1,7 +1,6 @@
 import { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 
-import Header from "@/components/Header/Header";
 import "@assets/globals.css";
 
 export const metadata: Metadata = {

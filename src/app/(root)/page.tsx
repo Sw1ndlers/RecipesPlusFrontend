@@ -3,7 +3,7 @@
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import {ErrorPage} from "@/components/Elements/Error";
+import { ErrorPage } from "@/components/Elements/Error";
 import { swrFetcher } from "@/functions/Fetching";
 import { SearchedRecipe } from "@/types/Recipes";
 import "swiper/css";
@@ -14,11 +14,7 @@ import useSWR from "swr";
 import { RecipeCard } from "@/components/Recipes/RecipeCard";
 
 function ScrollerContainer({ children }: { children: React.ReactNode }) {
-    return (
-        <div className="min-h-[340px] min-w-full">
-            {children}
-        </div>
-    );
+	return <div className="min-h-[340px] min-w-full">{children}</div>;
 }
 
 function FeaturedScroller({ searchTerm }: { searchTerm: string }) {

@@ -1,4 +1,4 @@
-import {HeaderCenterLayout} from "@/components/Layouts/Center"
+import { HeaderCenterLayout } from "@/components/Layouts/Center";
 
 export default function Custom404() {
 	return (
@@ -7,6 +7,6 @@ export default function Custom404() {
 			<p className="text-xl font-normal text-dark-0 mt-2">
 				Sorry, we can&apos;t find that page
 			</p>
-        </HeaderCenterLayout>
+		</HeaderCenterLayout>
 	);
 }

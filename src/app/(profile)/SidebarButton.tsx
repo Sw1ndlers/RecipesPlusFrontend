@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
 import { usePathname } from "next/navigation";
 
 export function SidebarButton({ text = "Button", href = "/" }) {
 	const pathname = usePathname();
-    let selected = (pathname == href);
+	let selected = pathname == href;
 
 	return (
 		<a

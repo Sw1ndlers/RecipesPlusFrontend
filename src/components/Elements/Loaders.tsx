@@ -1,6 +1,9 @@
-import React from "react";
-
-export function Spinner({ size = 50, stroke = 5, hidden = false, className = "" }) {
+export function Spinner({
+	size = 50,
+	stroke = 5,
+	hidden = false,
+	className = "",
+}) {
 	return (
 		<div
 			className={`
@@ -9,11 +12,11 @@ export function Spinner({ size = 50, stroke = 5, hidden = false, className = "" 
                 ${hidden ? "hidden" : "block"}
                 ${className}
             `}
-            style={{
-                width: size,
-                height: size,
-                borderWidth: stroke
-            }}
+			style={{
+				width: size,
+				height: size,
+				borderWidth: stroke,
+			}}
 		></div>
 	);
 }

@@ -1,11 +1,11 @@
 "use client";
 
 /* eslint-disable jsx-a11y/alt-text */
-import logo from "@assets/icon.png";
-import { useState } from "react";
-import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import { CenterLayout } from "@/components/Layouts/Center";
 import { Result } from "@/types/Results";
+import logo from "@assets/icon.png";
+import { IconEye, IconEyeOff } from "@tabler/icons-react";
+import { useState } from "react";
 
 function validEmail(email: string) {
 	return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -115,7 +115,7 @@ export default function RegisterPage() {
 		const sessionToken = data.value;
 		localStorage.setItem("sessionToken", sessionToken);
 
-        window.location.href = "/";
+		window.location.href = "/";
 	}
 
 	return (
@@ -141,7 +141,6 @@ export default function RegisterPage() {
 
 					<span className=" h-px w-full bg-dark-5"></span>
 
-
 					<TextInput
 						label="Username or Email"
 						name="username"
@@ -161,7 +160,7 @@ export default function RegisterPage() {
 							href="/register"
 							className=" cursor-pointer text-xs text-dark-0 hover:underline"
 						>
-                            Dont have an account? Register.
+							Dont have an account? Register.
 						</a>
 						<button className="rounded-full bg-dark-7 px-5 py-2 text-sm hover:bg-dark-6">
 							Login
@@ -169,6 +168,6 @@ export default function RegisterPage() {
 					</div>
 				</form>
 			</div>
-        </CenterLayout>
+		</CenterLayout>
 	);
 }

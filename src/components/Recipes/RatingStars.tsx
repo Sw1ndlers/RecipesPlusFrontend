@@ -1,7 +1,7 @@
 import {
-    IconStar,
-    IconStarFilled,
-    IconStarHalfFilled,
+	IconStar,
+	IconStarFilled,
+	IconStarHalfFilled,
 } from "@tabler/icons-react";
 
 export function RatingStars({
@@ -32,5 +32,11 @@ export function RatingStars({
 		currentRating -= 1;
 	}
 
-	return <div className={`flex h-${divHeight} flex-row items-center gap-1 text-dark-0`}>{stars}</div>;
+	return (
+		<div
+			className={`flex h-${divHeight} flex-row items-center gap-1 text-dark-0`}
+		>
+			{stars}
+		</div>
+	);
 }

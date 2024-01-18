@@ -30,7 +30,7 @@ export function SearchBar({
 
 	function onEnter(e: React.KeyboardEvent<HTMLInputElement>) {
 		if (e.key === "Enter") {
-            callback();
+			callback();
 			onSubmit(e);
 		}
 	}
@@ -48,7 +48,7 @@ export function SearchBar({
 			<input
 				className="flex-grow bg-transparent pl-4 text-white placeholder-dark-3 outline-none"
 				placeholder="Search for your next favorite"
-                name="search"
+				name="search"
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}
 				onKeyDown={onEnter}

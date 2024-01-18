@@ -11,19 +11,19 @@ export function Err<T, E>(error: E): Result<T, E> {
 }
 
 export function Unwrap<T, E>(result: Result<T, E>): T {
-    if (result.ok) {
-        return result.value;
-    } else {
-        throw result.error;
-    }
+	if (result.ok) {
+		return result.value;
+	} else {
+		throw result.error;
+	}
 }
 
 export function ForceUnwrap<T, E>(result: Result<T, E>): T {
-    if (result.ok) {
-        return result.value;
-    } else {
-        throw new Error("Forced unwrap failed");
-    }
+	if (result.ok) {
+		return result.value;
+	} else {
+		throw new Error("Forced unwrap failed");
+	}
 }
 
 // Option type

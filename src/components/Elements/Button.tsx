@@ -1,4 +1,4 @@
-export function Button({ text = "Button", href = "/", className="" }) {
+export function Button({ text = "Button", href = "/", className = "" }) {
 	return (
 		<a
 			href={href}

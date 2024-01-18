@@ -1,10 +1,10 @@
 "use client";
 
 /* eslint-disable jsx-a11y/alt-text */
-import logo from "@assets/icon.png";
-import { useState } from "react";
-import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import { CenterLayout } from "@/components/Layouts/Center";
+import logo from "@assets/icon.png";
+import { IconEye, IconEyeOff } from "@tabler/icons-react";
+import { useState } from "react";
 
 function validEmail(email: string) {
 	return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -116,7 +116,7 @@ export default function RegisterPage() {
 		const sessionToken = data.value;
 		localStorage.setItem("sessionToken", sessionToken);
 
-        window.location.href = "/verify";
+		window.location.href = "/verify";
 	}
 
 	return (
@@ -175,6 +175,6 @@ export default function RegisterPage() {
 					</div>
 				</form>
 			</div>
-            </CenterLayout>
+		</CenterLayout>
 	);
 }

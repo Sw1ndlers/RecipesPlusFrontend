@@ -1,6 +1,5 @@
 "use client";
 
-import { CenterLayout } from "@/components/Layouts/Center";
 import { fetchWithToken } from "@/functions/Fetching";
 import { Result } from "@/types/Results";
 import { useEffect, useState } from "react";
@@ -101,11 +100,7 @@ function VerifyInput() {
                     text-center text-sm
                     transition-all duration-200 hover:bg-dark-6
                     
-                    ${
-                        verifyResult == undefined
-                            ? "text-white"
-                            : ""
-                    }
+                    ${verifyResult == undefined ? "text-white" : ""}
                     ${
 						verifyResult?.ok
 							? "border-green-500 text-green-500"

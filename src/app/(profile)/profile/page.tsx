@@ -1,13 +1,7 @@
 "use client";
 
 import { useUserData } from "@/functions/Hooks";
-import {
-	ProfileLoadingPage,
-	ProfileContent,
-	ProfileSidebar,
-} from "../ProfileComponents";
-import { ReactElement, useEffect } from "react";
-import Layout from "@/app/layout";
+import { ProfileContent, ProfileLoadingPage } from "../ProfileComponents";
 
 export default function ProfilePage() {
 	const { userData, setUserData } = useUserData();
@@ -24,4 +18,3 @@ export default function ProfilePage() {
 		</div>
 	);
 }
-

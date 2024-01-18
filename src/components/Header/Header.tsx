@@ -1,15 +1,12 @@
 "use client";
 
-import { Button } from "@/components/Elements/Button";
 import { TextLink } from "@/components/Elements/TextLink";
 import { SearchBar } from "@/components/Header/SearchBar";
-import { IconMenu2, IconX } from "@tabler/icons-react";
+import { IconMenu2, IconUser, IconX } from "@tabler/icons-react";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
-import { useRouter } from "next/navigation";
-import { IconUser } from "@tabler/icons-react";
 
 function HeaderSection({
 	align = "center",
@@ -92,7 +89,7 @@ function ProfileButton() {
                     border-dark-5 bg-dark-6 px-2 py-1 
                     text-dark-0
                 "
-                aria-label="Profile"
+				aria-label="Profile"
 				href="/profile"
 			>
 				<IconUser color="white" size={24} stroke={1} />
@@ -117,7 +114,6 @@ export default function Header() {
 			document.body.classList.remove("overflow-hidden");
 		}
 	}, [mobileMenuOpen]);
-
 
 	return (
 		<>

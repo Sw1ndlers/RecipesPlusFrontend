@@ -1,10 +1,10 @@
 "use client";
 
-import useSWR from "swr";
-import { useSearchParams } from "next/navigation";
-import { RecipeCard, LoadingRecipeCard } from "@/components/Recipes/RecipeCard";
+import { ErrorPage } from "@/components/Elements/Error";
+import { LoadingRecipeCard, RecipeCard } from "@/components/Recipes/RecipeCard";
 import type { SearchedRecipe } from "@/types/Recipes";
-import {ErrorPage} from "@/components/Elements/Error";
+import { useSearchParams } from "next/navigation";
+import useSWR from "swr";
 
 function NoQuery() {
 	return (
@@ -25,8 +25,6 @@ function LoadingCardList() {
 	return [...Array(24)].map((_, i) => <LoadingRecipeCard key={i} />);
 }
 
-
-
 export default function SearchPage() {
 	const apiURL = process.env.API_URL;
 	const searchParams = useSearchParams();
@@ -35,10 +33,7 @@ export default function SearchPage() {
 	const fetcher = (...args: [RequestInfo, RequestInit?]) =>
 		fetch(...args).then((res) => res.json());
 
-	const { data, error } = useSWR(
-		`${apiURL}/search/${query}`,
-		fetcher,
-	);
+	const { data, error } = useSWR(`${apiURL}/search/${query}`, fetcher);
 
 	if (!query || !searchParams) return <NoQuery />;
 	if (error) return <ErrorPage caption={"Recipes could not be fetched"} />;

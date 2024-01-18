@@ -2,7 +2,6 @@ import { RatingStars } from "@/components/Recipes/RatingStars";
 import { SearchedRecipe } from "@/types/Recipes";
 import Link from "next/link";
 
-
 export function RecipeCard({
 	recipe,
 	minmal = false,
