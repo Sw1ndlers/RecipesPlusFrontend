@@ -5,6 +5,7 @@ import logo from "@assets/icon.png";
 import { useState } from "react";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import { CenterLayout } from "@/components/Layouts/Center";
+import { Result } from "@/types/Results";
 
 function validEmail(email: string) {
 	return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -104,7 +105,7 @@ export default function RegisterPage() {
 			body: JSON.stringify(registerData),
 		});
 
-		const data = await response.json();
+		const data: Result<string, string> = await response.json();
 
 		if (data.ok == false) {
 			alert(data.error);
