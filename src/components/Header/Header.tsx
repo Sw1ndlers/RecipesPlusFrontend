@@ -85,8 +85,9 @@ function MobileMenu({ toggleMenu }: { toggleMenu: () => void }) {
 
 const headerWhitelist = ["recipe", "search", "profile"];
 
-function validatePath(currentPath: string) {
-	currentPath = currentPath.split("/")[1];
+export function useValidateHeader() {
+    const pathname = usePathname();
+	const currentPath = pathname.split("/")[1];
 
 	for (const item of headerWhitelist) {
 		if (currentPath.includes(item) || currentPath == "") {
@@ -117,8 +118,6 @@ function ProfileButton() {
 export default function Header() {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const searchParams = useSearchParams();
-	const pathname = usePathname();
-
 	const query = searchParams?.get("q") || "";
 
 	function toggleMenu() {
@@ -133,7 +132,7 @@ export default function Header() {
 		}
 	}, [mobileMenuOpen]);
 
-    if (!validatePath(pathname)) return <></>;
+    if (!useValidateHeader()) return <></>;
 
 	return (
 		<>
