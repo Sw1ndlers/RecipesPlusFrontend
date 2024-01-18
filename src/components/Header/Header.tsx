@@ -83,20 +83,6 @@ function MobileMenu({ toggleMenu }: { toggleMenu: () => void }) {
 	);
 }
 
-const headerWhitelist = ["recipe", "search", "profile"];
-
-export function useValidateHeader() {
-    const pathname = usePathname();
-	const currentPath = pathname.split("/")[1];
-
-	for (const item of headerWhitelist) {
-		if (currentPath.includes(item) || currentPath == "") {
-			return true;
-		}
-	}
-	return false;
-}
-
 function ProfileButton() {
 	return (
 		<>
@@ -132,7 +118,6 @@ export default function Header() {
 		}
 	}, [mobileMenuOpen]);
 
-    if (!useValidateHeader()) return <></>;
 
 	return (
 		<>
