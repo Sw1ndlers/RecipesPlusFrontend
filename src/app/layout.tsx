@@ -22,18 +22,11 @@ export const viewport: Viewport = {
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function RootLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en" className="size-auto">
-			<body
-				className={`${inter.className} flex flex-col bg-dark-8`}
-				suppressHydrationWarning={true}
-			>
-				<Header />
+			<body className={`${inter.className} flex flex-col bg-dark-8`}>
+				{/* <Header /> */}
 
 				{children}
 			</body>
