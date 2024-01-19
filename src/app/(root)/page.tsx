@@ -20,7 +20,7 @@ function ScrollerContainer({ children }: { children: React.ReactNode }) {
 function FeaturedScroller({ searchTerm }: { searchTerm: string }) {
 	const apiUrl = process.env.API_URL;
 	const { data, error, isLoading } = useSWR(
-		`${apiUrl}/search/${searchTerm}`,
+		`${apiUrl}/search?q=${searchTerm}`,
 		swrFetcher,
 	);
 

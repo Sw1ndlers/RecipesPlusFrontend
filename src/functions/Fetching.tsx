@@ -45,11 +45,6 @@ export function getRecipeInfoFromUrl(recipeParams: [number, string]): Result<
 	return Ok({ recipeId, recipeRawTitle });
 }
 
-export async function searchForRecipes(
-	query: string,
-): Promise<Result<SearchedRecipe[], string>> {
-	return fetch(`${apiUrl}/search/${query}`).then((res) => res.json());
-}
 
 export async function fetchRecipeInfo(
 	recipeId: number,

@@ -33,7 +33,7 @@ export default function SearchPage() {
 	const fetcher = (...args: [RequestInfo, RequestInit?]) =>
 		fetch(...args).then((res) => res.json());
 
-	const { data, error } = useSWR(`${apiURL}/search/${query}`, fetcher);
+	const { data, error } = useSWR(`${apiURL}/search?q=${query}`, fetcher);
 
 	if (!query || !searchParams) return <NoQuery />;
 	if (error) return <ErrorPage caption={"Recipes could not be fetched"} />;
