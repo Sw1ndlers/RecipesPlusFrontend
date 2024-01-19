@@ -12,14 +12,15 @@ export function SidebarButton({ text = "Button", href = "/" }) {
 			className={`
                 flex w-full 
                 cursor-pointer rounded-md px-4 
-                py-2 text-dark-0
+                py-2 text-dark-0 box-border
+                border
 
                 ${
 					selected &&
-					`border border-dark-5 bg-dark-6 hover:brightness-95`
+					`border-dark-5 bg-dark-6 hover:brightness-95`
 				}
 
-                ${selected == false && `hover:bg-dark-6 `}
+                ${selected == false && `hover:bg-dark-6 border-transparent`}
             `}
 		>
 			{text}

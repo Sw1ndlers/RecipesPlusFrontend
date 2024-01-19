@@ -11,10 +11,6 @@ export default function ProfilePage() {
 	}
 
 	return (
-		<div className="flex h-[calc(100vh-64px)] flex-row px-5 py-10 gap-12">
-			<ProfileContent>
-				<p></p>
-			</ProfileContent>
-		</div>
+        <></>
 	);
 }
