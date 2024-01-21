@@ -2,7 +2,7 @@
 
 ## Information
 
-My first react project, made with typescript + tailwindcss.
+My first react project, made with typescript + tailwindcss.  
 Uses my [RecipesPlus Api](https://github.com/Sw1ndlers/RecipesPlusApi) to fetch data.  
 
 ## Running
